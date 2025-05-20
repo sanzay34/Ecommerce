@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 import { FaStar, FaStarHalf } from 'react-icons/fa';
+import RelatedProducts from '../components/RelatedProducts';
 
 const Product = () => {
   const { productId } = useParams();
-  const { products,currency } = useContext(ShopContext)
+  const { products,currency,addToCart } = useContext(ShopContext)
   const [productData, setProductData] = useState(false)
   const [image, setImage] = useState('');
+  const [size, setSize] = useState('');
   const fetchProductData = async () => {
     products.map((item) => {
       if (item.id === productId) {
@@ -49,13 +51,55 @@ const Product = () => {
 						<FaStar className="w-4" />
 						<FaStar className="w-4" />
 						<FaStar className="w-4" />
-            <FaStarHalf className="w-4" />
-            <p className='pl-2'>(23)</p>
+						<FaStarHalf className="w-4" />
+						<p className="pl-2">(23)</p>
+					</div>
+					<p className="mt-5 text-3xl font-medium">
+						{currency}
+						{productData.price}
+					</p>
+					<p className="mt-5 text-gray-600 md:w-4/5">
+						{productData.description}
+					</p>
+					<div className="flex flex-col gap-4 my-8">
+						<p> Select Size</p>
+						<div className="flex gap-2">
+							{productData.sizes.map((item, index) => (
+								<button
+									onClick={() => setSize(item)}
+									className={`border py-2 cursor-pointer px-4 bg-gray-100 ${item===size?'border-green-500':''}`}
+									key={index}
+								>
+									{item}
+								</button>
+							))}
+						</div>
           </div>
-          <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
-          <p className='mt-5 text-gray-600 md:w-4/5'>{productData.description}</p>
-				</div>
-			</div>
+          <button onClick={()=>addToCart(productData.id,size)} className='bg-black cursor-pointer text-white px-8 py-3 text-sm active:bg-gray-600'>ADD TO CART</button>
+          <hr className='mt-8 sm:w-4/5' />
+          <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
+            <p>100% Original product.</p>
+            <p>Cash on delivery available on this product.</p>
+            <p>Easy return and exchange policy within 7 days period.</p>
+
+          </div>
+        </div>
+      </div>
+      {/* ------------ Description and Review section------------ */}
+      <div className='mt-20'>
+        <div className='flex'>
+          <b className='border px-5 py-3 text-sm'>Description</b>
+          <p className='border px-5 py-3 text-sm'>Reviews(23)</p>
+
+        </div>
+        <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore quis neque debitis ab ex iste atque, unde rem, dolores modi eum quo! Aliquid, asperiores quas. Commodi ipsum minus ex eaque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quo impedit laboriosam accusantium dignissimos eveniet distinctio. Consequatur, vero explicabo sed quos itaque eaque ipsa, nulla maiores, temporibus excepturi optio accusantium.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis obcaecati, possimus laudantium maxime necessitatibus dicta nesciunt expedita, odit pariatur assumenda quibusdam animi, voluptatibus dolorem est vitae. Tempore nulla repellat sunt.</p>
+        </div>
+
+      </div>
+      {/* --------display related products */}
+      <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
 		</div>
 	) : (
 		<div className="opacity-0"></div>

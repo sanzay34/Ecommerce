@@ -11,7 +11,7 @@ import {
 import { ShopContext } from '../context/ShopContext';
 const Navbar = () => {
 	const [visible, setVisible] = useState(false);
-	const { setShowSearch } = useContext(ShopContext);
+	const { setShowSearch,getCartCount } = useContext(ShopContext);
   return (
 		<div className="flex items-center justify-between py-4 font-medium">
 			<Link to='/'>
@@ -51,7 +51,7 @@ const Navbar = () => {
 				<Link to="/cart" className="relative">
 					<FaShoppingCart className="" />
 					<p className="absolute right-[-5px] bottom-[-5px] w-3 h-3 text-center leading-3 bg-black text-white aspect-square rounded-full text-[8px]">
-						12
+						{getCartCount()}
 					</p>
 				</Link>
 				<FaBars
