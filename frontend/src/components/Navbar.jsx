@@ -14,7 +14,7 @@ const Navbar = () => {
 	const { setShowSearch,getCartCount } = useContext(ShopContext);
   return (
 		<div className="flex items-center justify-between py-4 font-medium">
-			<Link to='/'>
+			<Link to="/">
 				<img src={logo} className="w-11 h-11" alt="logo image" />
 			</Link>
 			<ul className="hidden sm:flex gap-5 text-sm text-gray-600">
@@ -36,9 +36,14 @@ const Navbar = () => {
 				</NavLink>
 			</ul>
 			<div className="flex items-center gap-6">
-				<FaSearch onClick={()=>setShowSearch(true)} className="cursor-pointer" />
+				<FaSearch
+					onClick={() => setShowSearch(true)}
+					className="cursor-pointer w-5 h-5"
+				/>
 				<div className="relative group">
-					<FaRegUser className="cursor-pointer" />
+					<Link to='/login'>
+						<FaRegUser className="cursor-pointer w-5 h-5" />
+					</Link>
 					<div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
 						<div className="flex flex-col gap-2 w-35 py-3 px-5 bg-slate-100 text-gray-500 rounded">
 							<p className="cursor-pointer hover:text-black">My Profile</p>
@@ -49,7 +54,7 @@ const Navbar = () => {
 				</div>
 
 				<Link to="/cart" className="relative">
-					<FaShoppingCart className="" />
+					<FaShoppingCart className="w-5 h-5" />
 					<p className="absolute right-[-5px] bottom-[-5px] w-3 h-3 text-center leading-3 bg-black text-white aspect-square rounded-full text-[8px]">
 						{getCartCount()}
 					</p>
