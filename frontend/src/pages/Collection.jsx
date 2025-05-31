@@ -41,9 +41,10 @@ const Collection = () => {
       productCopy = productCopy.filter(item => category.includes(item.category));
     }
     if (subCategory.length > 0) {
-      productCopy = productCopy.filter(item => subCategory.includes(item.subcategory));
+      productCopy = productCopy.filter(item => subCategory.includes(item.subCategory));
     }
     setFilterProducts(productCopy)
+    
   }
   const sortProducts = () => {
     let filterProductsCopy = products.slice();
@@ -64,11 +65,11 @@ const Collection = () => {
   }
   useEffect(() => {
     sortProducts();
-  },[sortType])
+  },[sortType,products])
 
   useEffect(() => {
     applyFilter();
-  },[category,subCategory,search,showSearch])
+  },[category,subCategory,search,showSearch,products])
   return (
 		<div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
 			{/*  left Filter options */}
@@ -138,7 +139,7 @@ const Collection = () => {
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
           {
             filterProducts.map((item, index) => (
-                <ProductItems key={index} name={item.name} id={item.id} image={item.image} price={item.price}/>
+                <ProductItems key={index} name={item.name} id={item._id} image={item.image} price={item.price}/>
               ))
           }
         </div>

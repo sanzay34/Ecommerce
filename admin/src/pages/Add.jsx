@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BsCloudUploadFill } from "react-icons/bs";
 import axios from 'axios'
 import { backendUrl } from '../App';
+import { toast } from 'react-toastify';
 const Add = ({token}) => {
   const[image1,setImage1]=useState(false)
   const[image2,setImage2]=useState(false)
@@ -33,10 +34,22 @@ const Add = ({token}) => {
       image4 && formData.append("image4", image4)
       
       const response = await axios.post(backendUrl + "/api/product/add", formData,{headers:{token}})
-      console.log(response)
+		if (response.data.success) {
+			toast.success(response.data.message)
+			setName('')
+			setDescription('')
+			setImage1(false)
+			setImage2(false)
+			setImage3(false)
+			setImage4(false)
+			setPrice('')
+		} else {
+			toast.error(response.data.message)
+	  }
      
     } catch (error) {
-      
+		console.log(error);
+		toast.error(error.message)
     }
   }
   return (
@@ -190,7 +203,7 @@ const Add = ({token}) => {
 							)
 						}
 						className={`${
-							sizes.includes("S") ? "bg-green-200" : "bg-blue-100"
+							sizes.includes("S") ? "bg-green-200" : "bg-pink-100"
 						} px-3 py-1 cursor-pointer`}
 					>
 						S
@@ -204,7 +217,7 @@ const Add = ({token}) => {
 							)
 						}
 						className={`${
-							sizes.includes("M") ? "bg-green-200" : "bg-blue-100"
+							sizes.includes("M") ? "bg-green-200" : "bg-pink-100"
 						} px-3 py-1 cursor-pointer`}
 					>
 						M
@@ -218,7 +231,7 @@ const Add = ({token}) => {
 							)
 						}
 						className={`${
-							sizes.includes("L") ? "bg-green-200" : "bg-blue-100"
+							sizes.includes("L") ? "bg-green-200" : "bg-pink-100"
 						} px-3 py-1 cursor-pointer`}
 					>
 						L
@@ -232,7 +245,7 @@ const Add = ({token}) => {
 							)
 						}
 						className={`${
-							sizes.includes("XL") ? "bg-green-200" : "bg-blue-100"
+							sizes.includes("XL") ? "bg-green-200" : "bg-pink-100"
 						} px-3 py-1 cursor-pointer`}
 					>
 						XL
@@ -246,7 +259,7 @@ const Add = ({token}) => {
 							)
 						}
 						className={`${
-							sizes.includes("XXL") ? "bg-green-200" : "bg-blue-100"
+							sizes.includes("XXL") ? "bg-green-200" : "bg-pink-100"
 						} px-3 py-1 cursor-pointer`}
 					>
 						XXL

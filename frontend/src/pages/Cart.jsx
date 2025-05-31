@@ -13,7 +13,7 @@ const Cart = () => {
       for (const item in cartItems[items]) {
         if (cartItems[items][item] > 0) {
           tempData.push({
-            id: items,
+            _id: items,
             size: item,
             quantity:cartItems[items][item]
           })
@@ -32,7 +32,7 @@ const Cart = () => {
       <div className=''>
         {
           cartData.map((item, index) => {
-            const productData = products.find((product) => product.id === item.id);
+            const productData = products.find((product) => product._id === item._id);
             return (
 							<div
 								key={index}
@@ -68,7 +68,7 @@ const Cart = () => {
 										className="border max-w-15 px-1 sm:px-2 py-1 text-center"
                   />
                   
-									<FaRegTrashAlt onClick={()=>updateQuantity(item.id,item.size,0)} className="text-red-600 w-8 h-8 mr-4 sm:w-5 cursor-pointer" />
+									<FaRegTrashAlt onClick={()=>updateQuantity(item._id,item.size,0)} className="text-red-600 w-8 h-8 mr-4 sm:w-5 cursor-pointer" />
 								
 							</div>
 						);

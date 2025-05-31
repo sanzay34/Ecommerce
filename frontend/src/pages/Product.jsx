@@ -12,7 +12,7 @@ const Product = () => {
   const [size, setSize] = useState('');
   const fetchProductData = async () => {
     products.map((item) => {
-      if (item.id === productId) {
+      if (item._id === productId) {
         setProductData(item)
        setImage(item.image[0])
         return null;
@@ -67,7 +67,7 @@ const Product = () => {
 							{productData.sizes.map((item, index) => (
 								<button
 									onClick={() => setSize(item)}
-									className={`border py-2 cursor-pointer px-4 bg-gray-100 ${item===size?'border-green-500':''}`}
+									className={`border py-2 cursor-pointer px-4 bg-gray-100 ${item===size?'border-green-500 bg-green-200':''}`}
 									key={index}
 								>
 									{item}
@@ -75,7 +75,7 @@ const Product = () => {
 							))}
 						</div>
           </div>
-          <button onClick={()=>addToCart(productData.id,size)} className='bg-black cursor-pointer text-white px-8 py-3 text-sm active:bg-gray-600'>ADD TO CART</button>
+          <button onClick={()=>addToCart(productData._id,size)} className='bg-black cursor-pointer text-white px-8 py-3 text-sm active:bg-gray-600'>ADD TO CART</button>
           <hr className='mt-8 sm:w-4/5' />
           <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
             <p>100% Original product.</p>
