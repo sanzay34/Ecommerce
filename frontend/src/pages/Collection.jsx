@@ -69,6 +69,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
+   
   },[category,subCategory,search,showSearch,products])
   return (
 		<div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -87,15 +88,15 @@ const Collection = () => {
 					<p className="mb-3 text-sm font-medium">CATEGORIES</p>
 					<div className="flex flex-col gap-2 text-sm font-light text-gray-700">
 						<p className="flex gap-2">
-							<input className="w-3" type="checkbox" value={"men"} onChange={toggleCategory} />
+							<input className="w-3" type="checkbox" value={"Men"} onChange={toggleCategory} />
 							Men
 						</p>
 						<p className="flex gap-2">
-							<input className="w-3" type="checkbox" value={"women"} onChange={toggleCategory} />
+							<input className="w-3" type="checkbox" value={"Women"} onChange={toggleCategory} />
 							women
 						</p>
 						<p className="flex gap-2">
-							<input className="w-3" type="checkbox" value={"kids"} onChange={toggleCategory} />
+							<input className="w-3" type="checkbox" value={"Kids"} onChange={toggleCategory} />
 							Kids
 						</p>
 					</div>
@@ -109,15 +110,15 @@ const Collection = () => {
 					<p className="mb-3 text-sm font-medium">TYPE</p>
 					<div className="flex flex-col gap-2 text-sm font-light text-gray-700">
 						<p className="flex gap-2">
-							<input className="w-3" type="checkbox" value={"upperwear"} onChange={toogleSubCategory} />
+							<input className="w-3" type="checkbox" value={"Topwear"} onChange={toogleSubCategory} />
 							Topwear
 						</p>
 						<p className="flex gap-2">
-							<input className="w-3" type="checkbox" value={"bottomwear"} onChange={toogleSubCategory}/>
+							<input className="w-3" type="checkbox" value={"Bottomwear"} onChange={toogleSubCategory}/>
 							Bottomwear
 						</p>
 						<p className="flex gap-2">
-							<input className="w-3" type="checkbox" value={"winterwear"} onChange={toogleSubCategory} />
+							<input className="w-3" type="checkbox" value={"Winterwear"} onChange={toogleSubCategory} />
 							Winterwear
 						</p>
 					</div>

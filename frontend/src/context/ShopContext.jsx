@@ -16,6 +16,7 @@ export const ShopContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
+    const [token, setToken] = useState('');
 
 
 
@@ -101,9 +102,14 @@ export const ShopContextProvider = (props) => {
     }
     useEffect(() => {
         getProductData()
+    }, [])
+    useEffect(() => {
+        if (!token && localStorage.getItem("token")) {
+            setToken(localStorage.getItem('token'))
+        }
     },[])
     const value = {
-        products,currency,delivery_fee,search,setSearch,showSearch,setShowSearch,cartItems,addToCart,getCartCount,updateQuantity,getCartAmount,navigate,backendUrl
+        products,currency,delivery_fee,search,setSearch,showSearch,setShowSearch,cartItems,addToCart,getCartCount,updateQuantity,getCartAmount,navigate,backendUrl,token,setToken,setCartItems
     }
     return (
         <ShopContext.Provider value={value}>
