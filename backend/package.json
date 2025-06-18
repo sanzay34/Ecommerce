@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "build": "your build command here"
+    "build": "echo 'No build step required'"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
