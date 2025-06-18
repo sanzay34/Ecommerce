@@ -8,20 +8,24 @@ const Cart = () => {
   const { products, currency, cartItems,updateQuantity,navigate } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   useEffect(() => {
-    const tempData = [];
-    for (const items in cartItems) {
-      for (const item in cartItems[items]) {
-        if (cartItems[items][item] > 0) {
-          tempData.push({
-            _id: items,
-            size: item,
-            quantity:cartItems[items][item]
-          })
-        }
-      }
+    if (products.length > 0) {
+      const tempData = [];
+			for (const items in cartItems) {
+				for (const item in cartItems[items]) {
+					if (cartItems[items][item] > 0) {
+						tempData.push({
+							_id: items,
+							size: item,
+							quantity: cartItems[items][item],
+						});
+					}
+				}
+			}
+			setCartData(tempData);
     }
-    setCartData(tempData)
-  },[cartItems])
+    
+  }, [cartItems, products])
+	
   return (
     <div className='border-t pt-14'>
       <div className='text-2xl mb-3'>
@@ -32,7 +36,12 @@ const Cart = () => {
       <div className=''>
         {
           cartData.map((item, index) => {
-            const productData = products.find((product) => product._id === item._id);
+			  const productData = products.find((product) => product._id === item._id);
+			  if (!productData) {
+					
+					return null; // Skip broken items
+				}
+			  
             return (
 							<div
 								key={index}
@@ -61,7 +70,7 @@ const Cart = () => {
 								</div>
 								
                 <input
-                  onChange={(e)=>e.target.value===''|| e.target.value==='0'?null:updateQuantity(item.id,item.size,Number(e.target.value))}
+                  onChange={(e)=>e.target.value===''|| e.target.value==='0'?null:updateQuantity(item._id,item.size,Number(e.target.value))}
 										type="number"
 										min={1}
 										defaultValue={item.quantity}
