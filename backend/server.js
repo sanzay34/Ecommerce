@@ -41,10 +41,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 //api endpoints
-app.use('api/user',userRouter)
-app.use('api/product', productRouter)
-app.use('api/cart',cartRouter)
-app.use('api/order', orderRouter)
+app.use('/api/user',userRouter)
+app.use('/api/product', productRouter)
+app.use('/api/cart',cartRouter)
+app.use('/api/order', orderRouter)
 
 //paymenets endpoints
 app.post("/api/payment/esewa/initiate", EsewaInitiatePayment);
