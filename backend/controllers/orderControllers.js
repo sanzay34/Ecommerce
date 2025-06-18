@@ -1,14 +1,13 @@
 import orderModel from "../models/orderModel.js"
 import userModels from "../models/userModels.js"
-import Esewa from 'esewajs'
+
 
 //global variables
 
 const currency = 'Rs.'
 const deliveryCharge=10
 
-//ggateway initialize
-const esewa = new Esewa(process.env.SECRET);
+
 //Placing order using COD method
 const placeOrder = async (req, res) => {
     try {
