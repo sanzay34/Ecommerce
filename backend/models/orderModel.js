@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
 	amount: { type: Number, required: true },
 	address: { type: Object, required: true },
 	status: { type: String, required: true, default: "Order Placed" },
-	paymentMethod: { type: String, enum: ["esewa", "khalti"], required: true },
+	paymentMethod: { type: String, enum: ["esewa", "khalti","COD"], required: true },
 	payment: { type: Boolean, required: true, default: false },
 	date: { type: Date, required: true },
 	paymentStatus: { type: String, enum: ["completed", "pending", "refunded"],default:"pending" },

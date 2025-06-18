@@ -6,6 +6,7 @@ import { ShopContext } from '../context/ShopContext';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import esewa from '../assets/esewalogo.png'
 const PlaceOrder = () => {
 	const [method, setMethod] = useState('cod');
 	const { navigate,backendUrl,token,cartItems,setCartItems,getCartAmount,delivery_fee,products } = useContext(ShopContext);
@@ -48,19 +49,50 @@ const PlaceOrder = () => {
 			}
 			switch (method) {
 				//api calls for COD
-				case 'cod':
-					const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
-					
-					
-						if (response.data.success) {
-							setCartItems({})
-							navigate('/order')
-							
-					}
-						else {
-							toast.error(response.data.message)
+				case "cod":
+					const response = await axios.post(
+						backendUrl + "/api/order/place",
+						orderData,
+						{ headers: { token } }
+					);
+
+					if (response.data.success) {
+						setCartItems({});
+						navigate("/order");
+					} else {
+						toast.error(response.data.message);
 					}
 					break;
+				case "esewa":
+					// Step 1: Place order
+					const orderRes = await axios.post(
+						backendUrl + "/api/order/place",
+						orderData,
+						{ headers: { token } }
+					);
+
+					if (!orderRes.data.success) {
+						toast.error(orderRes.data.message);
+						break;
+					}
+
+					// Step 2: Initiate eSewa payment with order ID or itemId
+					const paymentRes = await axios.post(
+						backendUrl + "/api/payment/esewa/initiate",
+						{
+							amount: orderData.amount,
+							itemId: orderRes.data.orderId, // adjust this based on what your backend returns
+						}
+					);
+
+					// Step 3: Redirect to eSewa
+					if (paymentRes.data.url) {
+						window.location.href = paymentRes.data.url;
+					} else {
+						toast.error("Failed to initiate eSewa payment.");
+					}
+					break;
+
 				default:
 					break;
 			}
@@ -166,27 +198,18 @@ const PlaceOrder = () => {
 					{/* ----------------------------Payment method selection--------------- */}
 					<div className="flex gap-3 flex-col lg:flex-row">
 						<div
-							onClick={() => setMethod("stripe")}
+							onClick={() => setMethod("esewa")}
 							className=" flex items-center gap-3 border p-2 px-3 cursor-pointer"
 						>
 							<p
 								className={`min-w-3.5 h-3.5 border rounded-full ${
-									method === "stripe" ? "bg-green-500" : ""
+									method === "esewa" ? "bg-green-500" : ""
 								}`}
 							></p>
-							<FaCcStripe className="h-5 w-8" />
+						  <img src={esewa} alt="" className='h-8 w-15' />
+					
 						</div>
-						<div
-							onClick={() => setMethod("visa")}
-							className=" flex items-center gap-3 border p-2 px-3 cursor-pointer"
-						>
-							<p
-								className={`min-w-3.5 h-3.5 border rounded-full ${
-									method === "visa" ? "bg-green-500" : ""
-								}`}
-							></p>
-							<FaCcVisa className="h-5 w-8" />
-						</div>
+						
 						<div
 							onClick={() => setMethod("cod")}
 							className=" flex items-center gap-3 border p-2 px-3 cursor-pointer"

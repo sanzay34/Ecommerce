@@ -28,10 +28,8 @@ const placeOrderKhalti = async (req, res) => {
 
 //placing order using esewa
 const placeOrderEsewa = async (req, res) => {
-    try {
-        const { userId, items, amount, address } = req.body;
-        const {origin}=req.headers
-		} catch (error) {}
+    
+        
 }
 
 //All orders data for Admin Panel

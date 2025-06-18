@@ -8,6 +8,10 @@ import productRouter from './routes/productRoutes.js'
 import cartRouter from './routes/cartRoutes.js'
 import orderRouter from './routes/orderRoutes.js'
 import bodyParser from 'body-parser'
+import {
+	EsewaInitiatePayment,
+	paymentStatus,
+} from "./controllers/esewa_controllers.js";
 //App config
 const app = express()
 const port = process.env.PORT || 4000
@@ -17,13 +21,20 @@ connectCloudinary()
 //Middlewares
 app.use(express.json())
 app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}))
 
 
 //api endpoints
 app.use('/api/user',userRouter)
 app.use('/api/product', productRouter)
 app.use('/api/cart',cartRouter)
-app.use('/api/order',orderRouter)
+app.use('/api/order', orderRouter)
+
+//paymenets endpoints
+app.post("/api/payment/esewa/initiate", EsewaInitiatePayment);
+app.post("/api/payment/esewa/status", paymentStatus);
+
 app.get('/', (req, res) => {
     res.send("API WORKING")
 })

@@ -13,6 +13,9 @@ import PlaceOrder from './pages/PlaceOrder'
 import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
 import { ToastContainer, toast } from "react-toastify";
+import Payment from './components/Payment/Payment';
+import Success from './components/Payment/Success';
+import Failure from './components/Payment/Failure';
 const App = () => {
   return (
 	  <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
@@ -29,6 +32,9 @@ const App = () => {
 				<Route path="/login" element={<Login />} />
 				<Route path="/place-order" element={<PlaceOrder />} />
 				<Route path="/order" element={<Order />} />
+				<Route path="/payment" element={<Payment />} />
+				<Route path="/payment_success" element={<Success />} />
+				<Route path="/payment_failed" element={<Failure />} />
 			</Routes>
 			<Footer/>
 		</div>
