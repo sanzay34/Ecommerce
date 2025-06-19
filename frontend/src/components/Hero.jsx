@@ -2,7 +2,7 @@ import React from 'react'
 import heroimg from '../assets/heroimg.jpg'
 const Hero = () => {
   return (
-      <div className='h-[500px] flex flex-col sm:flex-row border gray-400'>
+      <div className='sm:h-[500px] flex flex-col sm:flex-row border gray-400'>
           {/* Hero left side */}
           <div className='w-full sm:w-1/2 flex items-center justify-center py-10 sm:py-0'>
               <div className='text-amber-800'>
